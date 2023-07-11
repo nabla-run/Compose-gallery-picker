@@ -22,7 +22,10 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.core.graphics.applyCanvas
 import java.io.File
 import java.io.FileOutputStream
@@ -40,14 +43,21 @@ fun ImageEditor(
     header: @Composable () -> Unit = {},
     onImageEdited: (Uri) -> Unit
 ) {
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+    val widthInPx = with(density) { configuration.screenWidthDp.dp.toPx() }
+    val heightInPx = with(density) { configuration.screenHeightDp.dp.toPx() }
     /*
     val painter =
         rememberAsyncImagePainter(model = Uri.parse("/data/user/0/run.nabla.gallerypicker/cache/cropped_image_1.jpg"))
     */
     val bitmap = photoURI.toBitmap(LocalContext.current)
-    val state: PhotoState = rememberPhotoState().apply {
-        setPhotoBounds(Size(250f, 250f))
-    }
+    val contentSize = Size(
+        width = widthInPx,
+        height = heightInPx
+    )
+    val state: PhotoState = rememberPhotoState()
+    state.setPhotoBounds(Size(contentSize.width, contentSize.height))
 
     Column(
         modifier = modifier
@@ -72,7 +82,7 @@ fun ImageEditor(
                         addOval(
                             Rect(
                                 center,
-                                (size.minDimension / 2) - (size.minDimension / 10)
+                                (contentSize.minDimension / 3)
                             )
                         )
                     }

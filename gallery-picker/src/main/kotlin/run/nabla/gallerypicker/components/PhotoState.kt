@@ -1,5 +1,6 @@
 package run.nabla.gallerypicker.components
 
+import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.DecayAnimationSpec
@@ -115,7 +116,7 @@ class PhotoState(
                 width = layoutSize.width + photoBoundsSize.width,
                 height = layoutSize.height + photoBoundsSize.height
             )
-        } else {
+        }  else {
             layoutSize
         }
         return Offset(
