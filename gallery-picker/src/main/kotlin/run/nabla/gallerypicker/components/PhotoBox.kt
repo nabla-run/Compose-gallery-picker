@@ -5,13 +5,13 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.util.VelocityTracker
@@ -19,22 +19,24 @@ import androidx.compose.ui.input.pointer.util.addPointerInputChange
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.toSize
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun PhotoBox(
     modifier: Modifier = Modifier,
     state: PhotoState = rememberPhotoState(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
     enabled: Boolean = true,
     contentAlignment: Alignment = Alignment.Center,
     propagateMinConstraints: Boolean = false,
-    onTap: ((Offset) -> Unit),
+    onTap: ((Offset) -> Unit) = {},
+    onOffsetChange: ((Offset) -> Unit) = {},
     content: @Composable BoxScope.() -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-
     Box(
         modifier = modifier
+            .fillMaxSize()
             .onSizeChanged { state.layoutSize = it.toSize() }
             .pointerDragGestures(
                 enabled = enabled,
@@ -64,6 +66,9 @@ fun PhotoBox(
             )
             .clipToBounds()
             .graphicsLayer {
+                onOffsetChange(
+                    state.calculateCurrentOffsetWithTemplateSize()
+                )
                 scaleX = state.currentScale
                 scaleY = state.currentScale
                 translationX = state.currentOffset.x

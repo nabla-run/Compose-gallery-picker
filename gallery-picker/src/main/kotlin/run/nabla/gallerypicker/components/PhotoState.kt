@@ -1,6 +1,5 @@
 package run.nabla.gallerypicker.components
 
-import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationState
 import androidx.compose.animation.core.DecayAnimationSpec
@@ -19,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
+import androidx.compose.ui.geometry.isUnspecified
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.times
 
@@ -66,7 +66,8 @@ class PhotoState(
     internal var layoutSize: Size = Size.Zero
 
     private var photoIntrinsicSize: Size = Size.Unspecified
-    private var photoBoundsSize: Size = Size.Unspecified
+    var templateSize: Size = Size.Unspecified
+    var containerBounds: Size = Size.Unspecified
 
     /**
      * Set the intrinsic size of the photo.
@@ -74,10 +75,6 @@ class PhotoState(
      */
     fun setPhotoIntrinsicSize(size: Size) {
         photoIntrinsicSize = size
-    }
-
-    fun setPhotoBounds(size: Size) {
-        photoBoundsSize = size
     }
 
     private var _currentScale by mutableStateOf(currentScale)
@@ -111,12 +108,12 @@ class PhotoState(
         val content = if (photoIntrinsicSize.isSpecified) {
             val contentScale = ContentScale.Fit
             photoIntrinsicSize * contentScale.computeScaleFactor(photoIntrinsicSize, layoutSize)
-        } else if (photoBoundsSize.isSpecified) {
+        } else if (containerBounds.isSpecified) {
             Size(
-                width = layoutSize.width + photoBoundsSize.width,
-                height = layoutSize.height + photoBoundsSize.height
+                width = (containerBounds.width / currentScale) + (layoutSize.width),
+                height = (containerBounds.height / currentScale) + (layoutSize.height)
             )
-        }  else {
+        } else {
             layoutSize
         }
         return Offset(
@@ -201,6 +198,24 @@ class PhotoState(
     private fun isOutOfBounds(offset: Offset): Boolean {
         val (scrollableX, scrollableY) = calculateScrollableBounds()
         return offset.x !in -scrollableX..scrollableX && offset.y !in (-scrollableY..scrollableY)
+    }
+
+    fun calculateCurrentOffsetWithTemplateSize(): Offset {
+        if (templateSize.isUnspecified || containerBounds.isUnspecified) {
+            return Offset.Zero
+        }
+
+        val currentX = currentOffset.x
+        val currentY = currentOffset.y
+        val templateWidth = templateSize.width
+        val templateHeight = templateSize.height
+        val containerWidth = containerBounds.width
+        val containerHeight = containerBounds.height
+
+        return Offset(
+            x = currentX - (containerBounds.width / 2),
+            y = currentY - (containerBounds.height / 2)
+        )
     }
 
     internal companion object {
