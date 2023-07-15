@@ -11,13 +11,13 @@ Library is available on `mavenCentral()`.
 implementation("run.nabla:gallerypicker:1.0.0")
 ```
 
-## Functions
-
-The main functions provided by Compose-gallery-picker are:
-
 ## Screenshots
 
 ![Screenshot showing Image pciker and image editor screen](images/screenshot.png "Screenshot showing Image pciker and image editor screen")
+
+## Functions
+
+The main functions provided by Compose-gallery-picker are:
 
 #### GalleryPicker
 
