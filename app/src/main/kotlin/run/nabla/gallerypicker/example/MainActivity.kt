@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import run.nabla.gallerypicker.components.PhotoState
 import run.nabla.gallerypicker.components.rememberPhotoState
+import run.nabla.gallerypicker.editor.EditorFooter
 import run.nabla.gallerypicker.editor.ImageEditor
 import run.nabla.gallerypicker.picker.GalleryPicker
 import run.nabla.gallerypicker.templates.TemplateState
@@ -40,7 +41,9 @@ class MainActivity : ComponentActivity() {
                         navController.navigate("image-editor/${Uri.encode(it.toString())}")
                     }
                 )
-                imageEditor()
+                imageEditor(
+                    onBackClick = navController::navigateUp
+                )
             }
         }
     }
@@ -56,7 +59,9 @@ fun NavGraphBuilder.galleryPicker(
     }
 }
 
-fun NavGraphBuilder.imageEditor() {
+fun NavGraphBuilder.imageEditor(
+    onBackClick: () -> Unit
+) {
     composable(
         route = "image-editor/{fileUri}",
         arguments = listOf(navArgument("fileUri") { type = NavType.StringType })
@@ -76,13 +81,20 @@ fun NavGraphBuilder.imageEditor() {
                     diameterRatio = templateState.sizeRatio
                 )
             },
-            onSaveClick = { bitmap, scale, offset, templateSize ->
+            footer = { primaryClick ->
+                EditorFooter(
+                    onPrimaryActionClick = primaryClick,
+                    onSecondaryActionClick = onBackClick
+                )
+            },
+            onDoneClick = { bitmap, scale, offset, templateSize ->
                 bitmap.saveAsOval(
                     context = context,
                     scale = scale,
                     offset = offset,
                     templateSize = templateSize
                 )
+                onBackClick()
             },
         )
     }

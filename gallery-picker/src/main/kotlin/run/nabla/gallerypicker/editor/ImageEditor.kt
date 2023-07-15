@@ -40,32 +40,18 @@ fun ImageEditor(
     templateState: TemplateState? = null,
     primaryColor: Color = Color.Black,
     photoURI: Uri,
-    onSaveClick: (
+    onDoneClick: (
         bitmap: Bitmap,
         scale: Float,
         offset: Offset,
         templateSize: Size
     ) -> Unit,
     footer: @Composable BoxScope.(
-        bitmap: Bitmap,
-        scale: Float,
-        offset: Offset,
-        templateSize: Size
-    ) -> Unit = { bitmap, scale, offset, templateSize ->
-        EditorFooter(
-            onPrimaryActionClick = {
-                onSaveClick(
-                    bitmap,
-                    scale,
-                    offset,
-                    templateSize
-                )
-            }
-        )
-    },
+        primaryClick: () -> Unit,
+    ) -> Unit,
 ) {
-    var size by remember { mutableStateOf(IntSize.Zero) }
     val bitmap = photoURI.toBitmap(LocalContext.current)
+    var size by remember { mutableStateOf(IntSize.Zero) }
     LaunchedEffect(size) {
         templateState?.let {
             photoState.containerBounds =
@@ -80,6 +66,7 @@ fun ImageEditor(
             )
         }
     }
+
     var imageOffset = Offset(0f, 0f)
     var imageScale = 1f
 
@@ -115,10 +102,14 @@ fun ImageEditor(
             }
             template()
             footer(
-                bitmap = bitmap,
-                scale = imageScale,
-                offset = imageOffset,
-                templateSize = photoState.templateSize
+                primaryClick = {
+                    onDoneClick(
+                        bitmap,
+                        imageScale,
+                        imageOffset,
+                        photoState.templateSize
+                    )
+                }
             )
         }
     }
