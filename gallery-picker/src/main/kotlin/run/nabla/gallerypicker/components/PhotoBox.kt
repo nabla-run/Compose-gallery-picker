@@ -5,7 +5,8 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -37,7 +38,7 @@ fun PhotoBox(
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
+            .height(IntrinsicSize.Min)
             .onSizeChanged { state.layoutSize = it.toSize() }
             .pointerDragGestures(
                 enabled = enabled,

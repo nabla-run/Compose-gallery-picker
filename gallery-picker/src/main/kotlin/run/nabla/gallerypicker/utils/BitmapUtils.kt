@@ -1,13 +1,17 @@
 package run.nabla.gallerypicker.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.core.graphics.applyCanvas
+import java.io.File
+import java.io.FileOutputStream
 
-fun Bitmap.createCircle(
+fun Bitmap.createOval(
     scale: Float,
     offset: Offset,
     radius: Float
@@ -48,3 +52,25 @@ fun Bitmap.createCircle(
     softwareBitmap.recycle()
     return output
 }
+
+
+fun Bitmap.saveAsOval(
+    fileName: String = "oval_image.jpg",
+    quality: Int = 100,
+    compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
+    context: Context,
+    scale: Float,
+    offset: Offset,
+    templateSize: Size
+) {
+    val bitmapCrop = this.createOval(
+        scale = scale,
+        offset = offset,
+        radius = templateSize.width / 2
+    )
+    val file = File(context.cacheDir, fileName)
+    FileOutputStream(file).use { out ->
+        bitmapCrop.compress(compressFormat, quality, out)
+    }
+}
+

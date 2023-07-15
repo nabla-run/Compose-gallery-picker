@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 
 fun Uri.toBitmap(
     context: Context
-) =
+): Bitmap =
     if (Build.VERSION.SDK_INT < 28) {
         MediaStore.Images.Media.getBitmap(
             context.contentResolver,

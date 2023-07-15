@@ -4,11 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -24,6 +20,7 @@ import run.nabla.gallerypicker.picker.GalleryPicker
 import run.nabla.gallerypicker.templates.TemplateState
 import run.nabla.gallerypicker.templates.circle.Circle
 import run.nabla.gallerypicker.templates.rememberTemplateState
+import run.nabla.gallerypicker.utils.saveAsOval
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -68,6 +65,8 @@ fun NavGraphBuilder.imageEditor() {
         val photoState: PhotoState = rememberPhotoState()
         val templateState: TemplateState = rememberTemplateState()
 
+        val context = LocalContext.current
+
         ImageEditor(
             photoState = photoState,
             photoURI = fileUri,
@@ -77,8 +76,13 @@ fun NavGraphBuilder.imageEditor() {
                     diameterRatio = templateState.sizeRatio
                 )
             },
-            onImageEdited = {
-
+            onSaveClick = { bitmap, scale, offset, templateSize ->
+                bitmap.saveAsOval(
+                    context = context,
+                    scale = scale,
+                    offset = offset,
+                    templateSize = templateSize
+                )
             },
         )
     }

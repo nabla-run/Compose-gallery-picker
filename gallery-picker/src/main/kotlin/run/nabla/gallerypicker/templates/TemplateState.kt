@@ -32,7 +32,7 @@ class TemplateState(
             },
             restore = {
                 TemplateState(
-                    sizeRatio = it[1] as Float,
+                    sizeRatio = it[0] as Float,
                 )
             }
         )
@@ -44,3 +44,11 @@ fun TemplateState.getContainerBounce(container: Size): Size =
         width = container.minDimension - ((container.minDimension * sizeRatio)),
         height = container.maxDimension - ((container.minDimension * sizeRatio))
     )
+
+fun TemplateState.getTemplateBounce(container: Size, imageWidth: Int, imageHeight: Int): Size {
+    val proportionalHeight = (imageHeight * container.minDimension) / imageWidth
+    return Size(
+        width = container.minDimension - ((container.minDimension * sizeRatio)),
+        height = proportionalHeight - ((container.minDimension * sizeRatio)),
+    )
+}
