@@ -1,4 +1,4 @@
-package run.nabla.gallerypicker.utils
+package run.nabla.gallerypicker.extensions
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,9 +7,13 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.core.graphics.applyCanvas
 import java.io.File
 import java.io.FileOutputStream
+
+fun Bitmap.toPainter() = BitmapPainter(this.asImageBitmap())
 
 fun Bitmap.createOval(
     scale: Float,

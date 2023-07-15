@@ -22,15 +22,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.toSize
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import run.nabla.gallerypicker.R
 import run.nabla.gallerypicker.components.PhotoBox
 import run.nabla.gallerypicker.components.PhotoState
 import run.nabla.gallerypicker.components.rememberPhotoState
-import run.nabla.gallerypicker.extensions.toBitmap
 import run.nabla.gallerypicker.extensions.toPainter
+import run.nabla.gallerypicker.extensions.toScaledBitmap
 import run.nabla.gallerypicker.templates.TemplateState
 import run.nabla.gallerypicker.templates.getTemplateBounce
+import run.nabla.gallerypicker.utils.getScreenSize
 
 @Composable
 fun ImageEditor(
@@ -50,20 +55,31 @@ fun ImageEditor(
         primaryClick: () -> Unit,
     ) -> Unit,
 ) {
-    val bitmap = photoURI.toBitmap(LocalContext.current)
+    val context = LocalContext.current
+    val screenSize = getScreenSize()
+    var bitmap: Bitmap? by remember { mutableStateOf(null) }
     var size by remember { mutableStateOf(IntSize.Zero) }
-    LaunchedEffect(size) {
-        templateState?.let {
-            photoState.containerBounds =
-                templateState.getTemplateBounce(
-                    size.toSize(),
-                    bitmap.width,
-                    bitmap.height
+    LaunchedEffect(photoURI) {
+        withContext(Dispatchers.IO) {
+            bitmap = photoURI.toScaledBitmap(context, screenSize)
+        }
+
+    }
+
+    LaunchedEffect(size, bitmap) {
+        bitmap?.let { picture ->
+            templateState?.let {
+                photoState.containerBounds =
+                    templateState.getTemplateBounce(
+                        size.toSize(),
+                        picture.width,
+                        picture.height
+                    )
+                photoState.templateSize = Size(
+                    width = size.width * templateState.sizeRatio,
+                    height = size.width * templateState.sizeRatio
                 )
-            photoState.templateSize = Size(
-                width = size.width * templateState.sizeRatio,
-                height = size.width * templateState.sizeRatio
-            )
+            }
         }
     }
 
@@ -95,7 +111,8 @@ fun ImageEditor(
                 }
             ) {
                 Image(
-                    painter = bitmap.toPainter(),
+                    painter = bitmap?.toPainter()
+                        ?: painterResource(id = R.drawable.ic_default_photo),
                     contentScale = ContentScale.Fit,
                     contentDescription = ""
                 )
@@ -103,12 +120,14 @@ fun ImageEditor(
             template()
             footer(
                 primaryClick = {
-                    onDoneClick(
-                        bitmap,
-                        imageScale,
-                        imageOffset,
-                        photoState.templateSize
-                    )
+                    bitmap?.let {
+                        onDoneClick(
+                            it,
+                            imageScale,
+                            imageOffset,
+                            photoState.templateSize
+                        )
+                    }
                 }
             )
         }
