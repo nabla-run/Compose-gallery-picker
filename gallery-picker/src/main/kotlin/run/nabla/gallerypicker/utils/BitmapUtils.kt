@@ -13,22 +13,38 @@ fun Bitmap.createCircle(
     radius: Float
 ): Bitmap {
     val softwareBitmap = this.copy(Bitmap.Config.ARGB_8888, true)
-    val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
     val output = androidx.core.graphics.createBitmap(
         (radius * 2).toInt(),
         (radius * 2).toInt(),
         Bitmap.Config.ARGB_8888
     )
+
+    val scaledBitmapWidth = (softwareBitmap.width * scale).toInt()
+    val scaledBitmapHeight = (softwareBitmap.height * scale).toInt()
+    val scaledBitmap = Bitmap.createScaledBitmap(
+        softwareBitmap,
+        scaledBitmapWidth,
+        scaledBitmapHeight,
+        false
+    )
+
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
     output.applyCanvas {
-        drawCircle(radius, radius, radius, paint)
+        drawCircle(
+            radius,
+            radius,
+            radius,
+            paint
+        )
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
         drawBitmap(
-            softwareBitmap,
+            scaledBitmap,
             offset.x,
             offset.y,
             paint
         )
     }
+    scaledBitmap.recycle()
     softwareBitmap.recycle()
     return output
 }

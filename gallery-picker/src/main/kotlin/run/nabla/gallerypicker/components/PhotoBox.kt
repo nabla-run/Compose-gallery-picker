@@ -32,6 +32,7 @@ fun PhotoBox(
     propagateMinConstraints: Boolean = false,
     onTap: ((Offset) -> Unit) = {},
     onOffsetChange: ((Offset) -> Unit) = {},
+    onScaleChange: ((Float) -> Unit) = {},
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -69,6 +70,7 @@ fun PhotoBox(
                 onOffsetChange(
                     state.calculateCurrentOffsetWithTemplateSize()
                 )
+                onScaleChange(state.currentScale)
                 scaleX = state.currentScale
                 scaleY = state.currentScale
                 translationX = state.currentOffset.x

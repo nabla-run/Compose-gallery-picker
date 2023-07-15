@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -52,12 +54,13 @@ fun ImageEditor(
             photoState.containerBounds = templateState.getContainerBounce(size.toSize())
             photoState.templateSize = Size(
                 width = size.width * templateState.sizeRatio,
-                height = size.height * templateState.sizeRatio
+                height = size.width * templateState.sizeRatio
             )
         }
     }
     val bitmap = photoURI.toBitmap(LocalContext.current)
     var imageOffset by remember { mutableStateOf(Offset(0f, 0f)) }
+    var imageScale by remember { mutableFloatStateOf(1f) }
     val context = LocalContext.current
 
     Column(
@@ -75,6 +78,9 @@ fun ImageEditor(
                 state = photoState,
                 onOffsetChange = {
                     imageOffset = it
+                },
+                onScaleChange = {
+                    imageScale = it
                 }
             ) {
                 Image(
@@ -83,15 +89,17 @@ fun ImageEditor(
                 )
             }
             template()
-            Button(onClick = {
-                createBitmap(
-                    context = context,
-                    bitmap = bitmap,
-                    scale = 0f,
-                    offset = imageOffset,
-                    templateSize = photoState.templateSize
-                )
-            }) {
+            Button(
+                modifier = Modifier.statusBarsPadding(),
+                onClick = {
+                    createBitmap(
+                        context = context,
+                        bitmap = bitmap,
+                        scale = imageScale,
+                        offset = imageOffset,
+                        templateSize = photoState.templateSize
+                    )
+                }) {
                 Text(text = "SAVE")
             }
         }
@@ -106,7 +114,7 @@ fun createBitmap(
     templateSize: Size
 ) {
     val bitmapCrop = bitmap.createCircle(
-        scale = 1f,
+        scale = scale,
         offset = offset,
         radius = templateSize.width / 2
     )

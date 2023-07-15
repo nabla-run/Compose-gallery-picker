@@ -209,12 +209,15 @@ class PhotoState(
         val currentY = currentOffset.y
         val templateWidth = templateSize.width
         val templateHeight = templateSize.height
-        val containerWidth = containerBounds.width
-        val containerHeight = containerBounds.height
+
+        val spaceWidth = (((layoutSize.width * currentScale) / 2f) - templateWidth / 2)
+        val spaceHeight = (((layoutSize.height * currentScale) / 2f) - templateHeight / 2)
+        val x = currentX - spaceWidth
+        val y = currentY - spaceHeight
 
         return Offset(
-            x = currentX - (containerBounds.width / 2),
-            y = currentY - (containerBounds.height / 2)
+            x = x,
+            y = y,
         )
     }
 
