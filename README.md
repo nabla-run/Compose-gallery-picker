@@ -15,6 +15,10 @@ implementation("run.nabla:gallerypicker:1.0.0")
 
 The main functions provided by Compose-gallery-picker are:
 
+## Screenshots
+
+![Screenshot showing Image pciker and image editor screen](images/screenshot.png "Screenshot showing Image pciker and image editor screen")
+
 #### GalleryPicker
 
 The GalleryPicker composable displays a gallery of images for selection. It accepts various
