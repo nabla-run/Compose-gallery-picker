@@ -12,6 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+includeBuild("convention-plugins")
+
 rootProject.name = "Gallery Picker"
 include ':app'
 include ':gallery-picker'
