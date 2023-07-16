@@ -14,16 +14,9 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,10 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -45,21 +34,9 @@ fun GalleryPicker(
     header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
     onImageSelected: (Uri) -> Unit
 ) {
-    var permissionGranted by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val lazyGridState = rememberLazyStaggeredGridState()
-
-    CheckImageMediaPermission(
-        onPermissionGranted = { permissionGranted = true }
-    )
-
-    val photos = if (permissionGranted) {
-        rememberMediaPhotos(
-            context = context
-        )
-    } else {
-        emptyList()
-    }
+    val photos = rememberMediaPhotos(context = context)
 
     LazyVerticalStaggeredGrid(
         modifier = modifier
@@ -98,41 +75,5 @@ fun GalleryPicker(
                 )
             }
         }
-    }
-}
-
-@OptIn(ExperimentalPermissionsApi::class)
-@Composable
-private fun CheckImageMediaPermission(
-    onPermissionGranted: () -> Unit
-) {
-    val cameraPermissionState = rememberPermissionState(
-        android.Manifest.permission.READ_EXTERNAL_STORAGE
-    )
-    val title = ""
-    val text = if (cameraPermissionState.status.shouldShowRationale) {
-        "The camera is important for this app. Please grant the permission."
-    } else {
-        "Camera permission required for this feature to be available. " +
-                "Please grant the permission"
-    }
-
-    if (!cameraPermissionState.status.isGranted) {
-        AlertDialog(
-            title = { Text(text = title) },
-            text = { Text(text = text) },
-            buttons = {
-                Button(
-                    onClick = {
-                        cameraPermissionState.launchPermissionRequest()
-                    }
-                ) {
-                    Text("Request permission")
-                }
-            },
-            onDismissRequest = { }
-        )
-    } else {
-        onPermissionGranted()
     }
 }

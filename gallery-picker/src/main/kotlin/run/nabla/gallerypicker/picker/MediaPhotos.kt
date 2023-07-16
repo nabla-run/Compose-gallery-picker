@@ -13,14 +13,14 @@ import androidx.compose.ui.geometry.Size
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-data class MediaPhoto(
+internal data class MediaPhoto(
     val name: String,
     val uri: Uri,
     val size: Size
 )
 
 @Composable
-fun rememberMediaPhotos(
+internal fun rememberMediaPhotos(
     context: Context
 ): List<MediaPhoto> {
     val photos = remember { mutableStateListOf<MediaPhoto>() }

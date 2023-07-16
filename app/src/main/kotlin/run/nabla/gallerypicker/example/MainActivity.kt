@@ -1,27 +1,16 @@
 package run.nabla.gallerypicker.example
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import run.nabla.gallerypicker.components.PhotoState
-import run.nabla.gallerypicker.components.rememberPhotoState
-import run.nabla.gallerypicker.editor.EditorFooter
-import run.nabla.gallerypicker.editor.ImageEditor
-import run.nabla.gallerypicker.extensions.saveAsOval
-import run.nabla.gallerypicker.picker.GalleryPicker
-import run.nabla.gallerypicker.templates.TemplateState
-import run.nabla.gallerypicker.templates.circle.Circle
-import run.nabla.gallerypicker.templates.rememberTemplateState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -30,15 +19,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+        val permission = Manifest.permission.READ_EXTERNAL_STORAGE
+        val permissionGranted =
+            ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+        val startDestination = if (permissionGranted) GALLERY_SCREEN else PERMISSION_SCREEN
+
         setContent {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "gallery-picker"
+                startDestination = startDestination
             ) {
+                permissionScreen(
+                    onPermissionGranted = {
+                        navController.navigate(GALLERY_SCREEN)
+                    }
+                )
                 galleryPicker(
                     onImageSelected = {
-                        navController.navigate("image-editor/${Uri.encode(it.toString())}")
+                        navController.navigate("$IMAGE_EDITOR_SCREEN/${Uri.encode(it.toString())}")
                     }
                 )
                 imageEditor(
@@ -46,56 +45,5 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
-    }
-}
-
-fun NavGraphBuilder.galleryPicker(
-    onImageSelected: (Uri) -> Unit
-) {
-    composable(route = "gallery-picker") {
-        GalleryPicker(
-            onImageSelected = onImageSelected
-        )
-    }
-}
-
-fun NavGraphBuilder.imageEditor(
-    onBackClick: () -> Unit
-) {
-    composable(
-        route = "image-editor/{fileUri}",
-        arguments = listOf(navArgument("fileUri") { type = NavType.StringType })
-    ) {
-        val fileUri = Uri.parse(Uri.decode(it.arguments?.getString("fileUri")))
-        val photoState: PhotoState = rememberPhotoState()
-        val templateState: TemplateState = rememberTemplateState()
-
-        val context = LocalContext.current
-
-        ImageEditor(
-            photoState = photoState,
-            photoURI = fileUri,
-            templateState = templateState,
-            template = {
-                Circle(
-                    diameterRatio = templateState.sizeRatio
-                )
-            },
-            footer = { primaryClick ->
-                EditorFooter(
-                    onPrimaryActionClick = primaryClick,
-                    onSecondaryActionClick = onBackClick
-                )
-            },
-            onDoneClick = { bitmap, scale, offset, templateSize ->
-                bitmap.saveAsOval(
-                    context = context,
-                    scale = scale,
-                    offset = offset,
-                    templateSize = templateSize
-                )
-                onBackClick()
-            },
-        )
     }
 }

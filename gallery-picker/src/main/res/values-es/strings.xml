@@ -1,0 +1,5 @@
+<resources>
+    <string name="camera_permission_required">Se requiere el permiso de cámara para que esta función esté disponible. Por favor, concede el permiso.</string>
+    <string name="camera_permission_rationale">El acceso a la cámara es importante para esta aplicación. Por favor, concede el permiso.</string>
+    <string name="permission_request">Solicitud de permiso</string>
+</resources>

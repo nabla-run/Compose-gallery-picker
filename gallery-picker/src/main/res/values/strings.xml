@@ -1,0 +1,5 @@
+<resources>
+    <string name="camera_permission_required">Storage permission required for this feature to be available. Please grant the permission</string>
+    <string name="camera_permission_rationale">Storage access is important for this app. Please grant the permission.</string>
+    <string name="permission_request">Request permission</string>
+</resources>
