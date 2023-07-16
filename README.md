@@ -13,7 +13,13 @@ editor with cropping functionality based on a provided template.
 Library is available on `mavenCentral()`.
 
 ```kotlin
-implementation("run.nabla:gallerypicker:1.0.1")
+repositories {
+    mavenCentral()
+}
+```
+
+```kotlin
+implementation("run.nabla:gallery-picker:1.0.0")
 ```
 
 ## Screenshots
@@ -24,7 +30,7 @@ implementation("run.nabla:gallerypicker:1.0.1")
 
 The main functions provided by Compose-gallery-picker are:
 
-#### GalleryPicker
+#### GalleryPicker as compose component
 
 The GalleryPicker composable displays a gallery of images for selection. It accepts various
 parameters like modifier, state, primaryColor, and header. The onImageSelected callback is triggered
@@ -39,6 +45,33 @@ fun GalleryPicker(
     header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
     onImageSelected: (Uri) -> Unit
 )
+```
+
+#### GalleryPicker as activity intent
+
+The GalleryPicker can also be used as an activity intent to launch a gallery for photo selection. In
+this approach, you can utilize the rememberLauncherForActivityResult composable function to handle
+the gallery contract and retrieve the selected image URI.
+
+```kotlin
+val pickPhotoLauncher = rememberLauncherForActivityResult(
+    contract = GalleryContract(),
+    onResult = { uri ->
+
+    }
+)
+
+SideEffect {
+    pickPhotoLauncher.launch(
+        GalleryRequest.Builder()
+            .setTitle("Pick one")
+            .setTitleSize(25)
+            .setBackgroundColor(Color.White.value.toLong())
+            .setTitleColor(Color.Black.value.toLong())
+            .setShowBackButton(false)
+            .build()
+    )
+}
 ```
 
 #### ImageEditor
