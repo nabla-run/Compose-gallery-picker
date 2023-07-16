@@ -1,5 +1,9 @@
 ![Compose gallery picker](logo.svg)
 
+<p align="start">
+  <a href="https://developer.android.com/about/versions/nougat/android-7.0"><img alt="API" src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat"/></a>
+</p>
+
 Compose-gallery-picker is a library for Android Jetpack Compose that provides a gallery and an image
 editor with cropping functionality based on a provided template.
 
