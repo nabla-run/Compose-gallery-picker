@@ -1,6 +1,7 @@
 ![Compose gallery picker](logo.svg)
 
 <p align="start">
+  <a href="https://github.com/nabla-run/Compose-gallery-picker/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/nabla-run/Compose-gallery-picker"/></a>
   <a href="https://developer.android.com/about/versions/nougat/android-7.0"><img alt="API" src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat"/></a>
 </p>
 
@@ -12,7 +13,7 @@ editor with cropping functionality based on a provided template.
 Library is available on `mavenCentral()`.
 
 ```kotlin
-implementation("run.nabla:gallerypicker:1.0.0")
+implementation("run.nabla:gallerypicker:1.0.1")
 ```
 
 ## Screenshots
