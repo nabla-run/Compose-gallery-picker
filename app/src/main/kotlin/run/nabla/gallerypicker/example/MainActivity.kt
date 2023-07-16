@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         val permission = Manifest.permission.READ_EXTERNAL_STORAGE
         val permissionGranted =
             ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-        val startDestination = if (permissionGranted) GALLERY_SCREEN else PERMISSION_SCREEN
+        val startDestination = if (permissionGranted) EXAMPLE_SCREEN else PERMISSION_SCREEN
 
         setContent {
             val navController = rememberNavController()
@@ -32,7 +32,8 @@ class MainActivity : ComponentActivity() {
             ) {
                 permissionScreen(
                     onPermissionGranted = {
-                        navController.navigate(GALLERY_SCREEN)
+                        // navController.navigate(GALLERY_SCREEN) // Gallery as compose screen
+                        navController.navigate(EXAMPLE_SCREEN) // Gallery as Activity launch intent
                     }
                 )
                 galleryPicker(
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 imageEditor(
                     onBackClick = navController::navigateUp
                 )
+                exampleScreen()
             }
         }
     }

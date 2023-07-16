@@ -19,6 +19,7 @@ import run.nabla.gallerypicker.templates.rememberTemplateState
 const val PERMISSION_SCREEN = "permission-screen"
 const val GALLERY_SCREEN = "gallery-screen"
 const val IMAGE_EDITOR_SCREEN = "image-editor"
+const val EXAMPLE_SCREEN = "example-screen"
 
 fun NavGraphBuilder.permissionScreen(
     onPermissionGranted: () -> Unit
@@ -78,5 +79,14 @@ fun NavGraphBuilder.imageEditor(
                 onBackClick()
             },
         )
+    }
+}
+
+fun NavGraphBuilder.exampleScreen(
+) {
+    composable(
+        route = EXAMPLE_SCREEN
+    ) {
+        ExampleScreen()
     }
 }

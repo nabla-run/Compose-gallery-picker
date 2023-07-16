@@ -2,7 +2,6 @@ plugins {
     kotlin("kapt")
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
     id("convention.publication")
 }
 
@@ -44,19 +43,14 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.compose.ui:ui:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.activity:activity-ktx:1.7.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.47")
-    kapt("com.google.dagger:hilt-android-compiler:2.47")
 }
-
 
 publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "run.nabla"
-            artifactId = "gallerypicker"
-            version = "1.0.1"
+            artifactId = "gallery-picker"
+            version = "1.0.0"
             afterEvaluate {
                 from(components["release"])
             }

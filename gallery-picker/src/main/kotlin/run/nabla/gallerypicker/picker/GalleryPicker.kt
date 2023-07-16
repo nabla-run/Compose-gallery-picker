@@ -30,7 +30,7 @@ import coil.compose.rememberAsyncImagePainter
 fun GalleryPicker(
     modifier: Modifier = Modifier,
     state: GalleryPickerState = rememberGalleryPickerState(),
-    primaryColor: Color = Color.Black,
+    backgroundColor: Color = Color.Black,
     header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
     onImageSelected: (Uri) -> Unit
 ) {
@@ -40,7 +40,7 @@ fun GalleryPicker(
 
     LazyVerticalStaggeredGrid(
         modifier = modifier
-            .background(primaryColor)
+            .background(backgroundColor)
             .statusBarsPadding()
             .padding(horizontal = state.horizontalPadding.dp)
             .fillMaxWidth(),
