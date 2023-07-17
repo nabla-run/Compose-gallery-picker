@@ -16,20 +16,9 @@ import run.nabla.gallerypicker.templates.TemplateState
 import run.nabla.gallerypicker.templates.circle.Circle
 import run.nabla.gallerypicker.templates.rememberTemplateState
 
-const val PERMISSION_SCREEN = "permission-screen"
 const val GALLERY_SCREEN = "gallery-screen"
 const val IMAGE_EDITOR_SCREEN = "image-editor"
 const val GALLERY_INTENT_SCREEN = "gallery-intent-screen"
-
-fun NavGraphBuilder.permissionScreen(
-    onPermissionGranted: () -> Unit
-) {
-    composable(route = PERMISSION_SCREEN) {
-        PermissionScreen(
-            onPermissionGranted = onPermissionGranted
-        )
-    }
-}
 
 fun NavGraphBuilder.galleryPicker(
     onImageSelected: (Uri) -> Unit

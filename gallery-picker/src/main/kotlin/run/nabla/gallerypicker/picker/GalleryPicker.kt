@@ -1,5 +1,6 @@
 package run.nabla.gallerypicker.picker
 
+import android.Manifest
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,20 +25,38 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import run.nabla.gallerypicker.permission.RequestPermissionScreen
+import run.nabla.gallerypicker.permission.RequestPermissionState
+import run.nabla.gallerypicker.permission.rememberRequestPermissionState
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
 @Composable
 fun GalleryPicker(
     modifier: Modifier = Modifier,
     state: GalleryPickerState = rememberGalleryPickerState(),
+    permissionState: RequestPermissionState = rememberRequestPermissionState(),
     backgroundColor: Color = Color.Black,
     header: @Composable () -> Unit = { GalleryHeader() },
-    onImageSelected: (Uri) -> Unit
+    onImageSelected: (Uri) -> Unit,
 ) {
     val context = LocalContext.current
     val lazyGridState = rememberLazyStaggeredGridState()
-    val photos = rememberMediaPhotos(context = context)
+    val storagePermissionState = rememberPermissionState(
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
+    if (!storagePermissionState.status.isGranted) {
+        RequestPermissionScreen(
+            state = permissionState,
+            permissionState = storagePermissionState,
+        )
+        return
+    }
+
+    val photos = rememberMediaPhotos(context = context)
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .background(backgroundColor)

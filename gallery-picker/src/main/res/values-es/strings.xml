@@ -1,5 +1,6 @@
 <resources>
-    <string name="camera_permission_required">Se requiere el permiso de cámara para que esta función esté disponible. Por favor, concede el permiso.</string>
-    <string name="camera_permission_rationale">El acceso a la cámara es importante para esta aplicación. Por favor, concede el permiso.</string>
-    <string name="permission_request">Solicitud de permiso</string>
+    <string name="storage_permission_request_title">Acceso a tus Fotos</string>
+    <string name="storage_permission_request_body">Necesitamos tu permiso para acceder a las imágenes almacenadas en tu dispositivo.</string>
+    <string name="storage_permission_request_confirm">SÍ, VAMOS</string>
+    <string name="storage_permission_request_cancel">VOLVER</string>
 </resources>

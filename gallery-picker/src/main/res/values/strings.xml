@@ -1,5 +1,6 @@
 <resources>
-    <string name="camera_permission_required">Storage permission required for this feature to be available. Please grant the permission</string>
-    <string name="camera_permission_rationale">Storage access is important for this app. Please grant the permission.</string>
-    <string name="permission_request">Request permission</string>
+    <string name="storage_permission_request_title">Access to your Photos</string>
+    <string name="storage_permission_request_body">We need your permission to access the images stored on your device.</string>
+    <string name="storage_permission_request_confirm">YES, LET\'S GO</string>
+    <string name="storage_permission_request_cancel">GET BACK</string>
 </resources>

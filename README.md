@@ -43,6 +43,7 @@ when an image is selected.
 fun GalleryPicker(
     modifier: Modifier = Modifier,
     state: GalleryPickerState = rememberGalleryPickerState(),
+    permissionState: RequestPermissionState = rememberRequestPermissionState(),
     primaryColor: Color = Color.Black,
     header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
     onImageSelected: (Uri) -> Unit

@@ -22,20 +22,13 @@ class MainActivity : ComponentActivity() {
         val permission = Manifest.permission.READ_EXTERNAL_STORAGE
         val permissionGranted =
             ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-        val startDestination = if (permissionGranted) GALLERY_INTENT_SCREEN else PERMISSION_SCREEN
 
         setContent {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = startDestination
+                startDestination = GALLERY_INTENT_SCREEN // or GALLERY_SCREEN to composable example
             ) {
-                permissionScreen(
-                    onPermissionGranted = {
-                        // navController.navigate(GALLERY_SCREEN) // Gallery as compose screen
-                        navController.navigate(GALLERY_INTENT_SCREEN) // Gallery as Activity launch intent
-                    }
-                )
                 galleryPicker(
                     onImageSelected = {
                         navController.navigate("$IMAGE_EDITOR_SCREEN/${Uri.encode(it.toString())}")

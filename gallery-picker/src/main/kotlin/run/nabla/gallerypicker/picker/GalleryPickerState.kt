@@ -19,7 +19,7 @@ fun rememberGalleryPickerState(
     roundedCornerSize: Int = DEFAULT_ITEM_ROUNDED_CORNER_SIZE,
     gridColumns: Int = DEFAULT_GRID_COLUMNS,
     itemMinHeight: Int = DEFAULT_ITEM_MIN_HEIGHT,
-    itemMaxHeight: Int = DEFAULT_ITEM_MAX_HEIGHT
+    itemMaxHeight: Int = DEFAULT_ITEM_MAX_HEIGHT,
 ): GalleryPickerState = rememberSaveable(saver = GalleryPickerState.Saver) {
     GalleryPickerState(
         horizontalPadding = horizontalPadding,

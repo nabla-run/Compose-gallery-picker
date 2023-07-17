@@ -26,6 +26,8 @@ fun GalleryIntentScreen() {
                 .showExitAction(false)
                 .setItemsRoundedCornerSize(5)
                 .setGridColumns(3)
+                .setPermissionTitle("Access to your photos")
+                .setPermissionSecondaryActionTitle("Cancel")
                 .build()
         )
     }
