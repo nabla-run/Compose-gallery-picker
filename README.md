@@ -21,7 +21,7 @@ repositories {
 ```
 
 ```kotlin
-implementation("run.nabla:gallery-picker:1.1.0")
+implementation("run.nabla:gallery-picker:1.2.0")
 ```
 
 ## Screenshots
