@@ -31,7 +31,7 @@ fun GalleryPicker(
     modifier: Modifier = Modifier,
     state: GalleryPickerState = rememberGalleryPickerState(),
     backgroundColor: Color = Color.Black,
-    header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
+    header: @Composable () -> Unit = { GalleryHeader() },
     onImageSelected: (Uri) -> Unit
 ) {
     val context = LocalContext.current
@@ -45,7 +45,7 @@ fun GalleryPicker(
             .padding(horizontal = state.horizontalPadding.dp)
             .fillMaxWidth(),
         state = lazyGridState,
-        columns = StaggeredGridCells.Fixed(3)
+        columns = StaggeredGridCells.Fixed(state.gridColumns)
     ) {
         item(span = StaggeredGridItemSpan.FullLine) {
             header()
@@ -65,7 +65,7 @@ fun GalleryPicker(
                 Image(
                     modifier = Modifier
                         .aspectRatio(photo.size.width / photo.size.height)
-                        .heightIn(min = 150.dp, max = 250.dp)
+                        .heightIn(min = state.itemMinHeight.dp, max = state.itemMaxHeight.dp)
                         .fillMaxWidth(),
                     painter = rememberAsyncImagePainter(
                         photo.uri

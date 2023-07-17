@@ -39,12 +39,21 @@ class GalleryPickerActivity : ComponentActivity() {
             GalleryPicker(
                 onImageSelected = onImageSelected,
                 backgroundColor = Color(request.backgroundColor.toULong()),
+                state = rememberGalleryPickerState(
+                    horizontalPadding = request.horizontalPadding,
+                    roundedCornerSize = request.itemsRoundedCornerSize,
+                    gridColumns = request.gridColumns,
+                    itemMinHeight = request.itemMinHeight,
+                    itemMaxHeight = request.itemMaxHeight,
+                ),
                 header = {
                     GalleryHeader(
                         title = request.title,
                         titleSize = request.titleSize,
                         titleColor = request.titleColor,
-                        onLeftActionClick = if (request.showBackButton) {
+                        paddingVertical = request.titlePaddingVertical,
+                        paddingHorizontal = request.titlePaddingHorizontal,
+                        onLeftActionClick = if (request.showExitAction) {
                             { onBackPressedDispatcher.onBackPressed() }
                         } else {
                             null

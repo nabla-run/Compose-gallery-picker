@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application>
-        <activity android:name="run.nabla.gallerypicker.picker.GalleryPickerActivity" />
+        <activity
+            android:name="run.nabla.gallerypicker.picker.GalleryPickerActivity"
+            android:exported="true"
+            android:screenOrientation="nosensor"
+            android:theme="@android:style/Theme.Material.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>

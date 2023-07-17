@@ -1,8 +1,10 @@
 ![Compose gallery picker](logo.svg)
 
 <p align="start">
-  <a href="https://github.com/nabla-run/Compose-gallery-picker/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/nabla-run/Compose-gallery-picker"/></a>
+  <a href="https://central.sonatype.com/artifact/run.nabla/gallery-picker"><img alt="maven" src="https://img.shields.io/maven-central/v/run.nabla/gallery-picker"/></a>
+  <a href="https://github.com/nabla-run/Compose-gallery-picker"><img alt="kotlin" src="https://img.shields.io/badge/Kotlin-100%25-brightgreen"/></a>
   <a href="https://developer.android.com/about/versions/nougat/android-7.0"><img alt="API" src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat"/></a>
+  <a href="https://github.com/nabla-run/Compose-gallery-picker/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/nabla-run/Compose-gallery-picker"/></a>
 </p>
 
 Compose-gallery-picker is a library for Android Jetpack Compose that provides a gallery and an image
@@ -19,7 +21,7 @@ repositories {
 ```
 
 ```kotlin
-implementation("run.nabla:gallery-picker:1.0.0")
+implementation("run.nabla:gallery-picker:1.1.0")
 ```
 
 ## Screenshots
@@ -68,7 +70,7 @@ SideEffect {
             .setTitleSize(25)
             .setBackgroundColor(Color.White.value.toLong())
             .setTitleColor(Color.Black.value.toLong())
-            .setShowBackButton(false)
+            .showExitAction(false)
             .build()
     )
 }
