@@ -2,6 +2,7 @@
 
 package run.nabla.gallerypicker.picker.result
 
+import androidx.annotation.FontRes
 import androidx.compose.ui.graphics.Color
 import run.nabla.gallerypicker.R
 import run.nabla.gallerypicker.permission.DEFAULT_PERMISSION_BODY_SIZE
@@ -20,6 +21,9 @@ import run.nabla.gallerypicker.picker.DEFAULT_ITEM_ROUNDED_CORNER_SIZE
 
 class GalleryRequest internal constructor() {
 
+    @FontRes
+    var fontFamily: Int = 0
+        internal set
     var backgroundColor: Long = Color.Black.value.toLong()
         internal set
     var titleColor: Long = Color.White.value.toLong()
@@ -99,6 +103,8 @@ class GalleryRequest internal constructor() {
      */
     class Builder {
 
+        private var fontFamily: Int = 0
+
         private var backgroundColor: Long = Color.Black.value.toLong()
 
         private var titleColor: Long = Color.White.value.toLong()
@@ -165,6 +171,18 @@ class GalleryRequest internal constructor() {
 
         private var permissionSecondaryActionBorderColor: Long =
             Color.Black.value.toLong()
+
+
+        /**
+         * Set the font family for the screen.
+         *
+         * @param fontFamily the font family to set.
+         * @return This builder.
+         */
+        fun setFontFamily(fontFamily: Int): Builder {
+            this.fontFamily = fontFamily
+            return this
+        }
 
         /**
          * Set the background color for the screen.
@@ -513,6 +531,7 @@ class GalleryRequest internal constructor() {
          * @return the newly constructed GalleryRequest.
          */
         fun build(): GalleryRequest = GalleryRequest().apply {
+            this.fontFamily = this@Builder.fontFamily
             this.backgroundColor = this@Builder.backgroundColor
             this.titleColor = this@Builder.titleColor
             this.title = this@Builder.title

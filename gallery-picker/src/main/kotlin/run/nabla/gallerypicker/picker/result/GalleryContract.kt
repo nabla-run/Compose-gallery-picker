@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
 import run.nabla.gallerypicker.picker.GalleryPickerActivity
 
+const val EXTRA_FONT_FAMILY = "run.nabla.gallerypicker.intent.extra.FONT_FAMILY"
 const val EXTRA_BACKGROUND_COLOR = "run.nabla.gallerypicker.intent.extra.BACKGROUND_COLOR"
 const val EXTRA_TITLE_COLOR = "run.nabla.gallerypicker.intent.extra.TITLE_COLOR"
 const val EXTRA_TITLE = "run.nabla.gallerypicker.intent.extra.TITLE"
@@ -71,6 +72,7 @@ open class GalleryContract : ActivityResultContract<GalleryRequest, Uri?>() {
 
     override fun createIntent(context: Context, input: GalleryRequest): Intent {
         val extrasToPut = mapOf(
+            EXTRA_FONT_FAMILY to input.fontFamily,
             EXTRA_BACKGROUND_COLOR to input.backgroundColor,
             EXTRA_TITLE_COLOR to input.titleColor,
             EXTRA_TITLE to input.title,
@@ -122,6 +124,7 @@ open class GalleryContract : ActivityResultContract<GalleryRequest, Uri?>() {
 
 fun GalleryRequest.updateFromBundle(bundle: Bundle?) {
     bundle?.let {
+        fontFamily = it.getInt(EXTRA_FONT_FAMILY, fontFamily)
         backgroundColor = it.getLong(EXTRA_BACKGROUND_COLOR, backgroundColor)
         titleColor = it.getLong(EXTRA_TITLE_COLOR, titleColor)
         title = it.getString(EXTRA_TITLE, title)
