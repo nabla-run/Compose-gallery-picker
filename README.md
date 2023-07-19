@@ -21,7 +21,7 @@ repositories {
 ```
 
 ```kotlin
-implementation("run.nabla:gallery-picker:1.2.0")
+implementation("run.nabla:gallery-picker:1.3.0")
 ```
 
 ## Screenshots
@@ -68,10 +68,15 @@ SideEffect {
     pickPhotoLauncher.launch(
         GalleryRequest.Builder()
             .setTitle("Pick one")
+            .setFontFamily(R.font.open_sans)
             .setTitleSize(25)
             .setBackgroundColor(Color.White.value.toLong())
             .setTitleColor(Color.Black.value.toLong())
             .showExitAction(false)
+            .setItemsRoundedCornerSize(5)
+            .setGridColumns(3)
+            .setPermissionTitle("Access to your photos")
+            .setPermissionSecondaryActionTitle("Cancel")
             .build()
     )
 }
