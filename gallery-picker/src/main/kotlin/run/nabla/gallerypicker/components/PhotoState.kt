@@ -130,7 +130,6 @@ class PhotoState(
                 || (currentOffset.x != Offset.Zero.x
                 && currentOffset.y != Offset.Zero.y)
 
-
     /**
      * Reset scale
      */

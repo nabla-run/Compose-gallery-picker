@@ -77,4 +77,3 @@ fun Bitmap.saveAsOval(
         bitmapCrop.compress(compressFormat, quality, out)
     }
 }
-

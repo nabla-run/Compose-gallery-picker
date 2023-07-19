@@ -75,7 +75,6 @@ publishing {
             scm {
                 url.set("https://github.com/nabla-run/Compose-gallery-picker")
             }
-
         }
     }
 }

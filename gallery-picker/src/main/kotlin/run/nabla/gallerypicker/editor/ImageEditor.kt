@@ -63,7 +63,6 @@ fun ImageEditor(
         withContext(Dispatchers.IO) {
             bitmap = photoURI.toScaledBitmap(context, screenSize)
         }
-
     }
 
     LaunchedEffect(size, bitmap) {
