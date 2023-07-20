@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
-import android.net.Uri
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.asImageBitmap
@@ -98,7 +97,7 @@ fun Bitmap.saveAsOval(
     scale: Float,
     offset: Offset,
     templateSize: Size
-): Uri {
+): File {
     val bitmapCrop = this.toOval(
         scale = scale,
         offset = offset,
@@ -108,7 +107,7 @@ fun Bitmap.saveAsOval(
     FileOutputStream(file).use { out ->
         bitmapCrop.compress(compressFormat, quality, out)
     }
-    return Uri.parse(file.toString())
+    return file
 }
 
 fun Bitmap.saveAsSquare(
@@ -119,7 +118,7 @@ fun Bitmap.saveAsSquare(
     scale: Float,
     offset: Offset,
     templateSize: Size
-): Uri {
+): File {
     val bitmapCrop = this.toSquare(
         scale = scale,
         offset = offset,
@@ -129,5 +128,5 @@ fun Bitmap.saveAsSquare(
     FileOutputStream(file).use { out ->
         bitmapCrop.compress(compressFormat, quality, out)
     }
-    return Uri.parse(file.toString())
+    return file
 }
