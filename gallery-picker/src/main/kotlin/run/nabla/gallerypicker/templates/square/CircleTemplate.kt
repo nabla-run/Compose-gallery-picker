@@ -21,7 +21,6 @@ fun BoxScope.Square(
     modifier: Modifier = Modifier,
     diameterRatio: Float
 ) {
-
     val size = remember { mutableStateOf(IntSize.Zero) }
 
     Canvas(

@@ -10,7 +10,7 @@
 Compose-gallery-picker is a library for Android Jetpack Compose that provides a gallery and an image
 editor with cropping functionality based on a provided template.
 
-## Download
+## Setup
 
 Library is available on `mavenCentral()`.
 
@@ -21,7 +21,7 @@ repositories {
 ```
 
 ```kotlin
-implementation("run.nabla:gallery-picker:1.3.0")
+implementation("run.nabla:gallery-picker:1.4.0")
 ```
 
 ## Screenshots
@@ -108,6 +108,55 @@ fun ImageEditor(
     ) -> Unit,
 )
 ```
+
+### Templates
+
+Compose-gallery-picker provides two templates for the ImageEditor: Oval and Square.
+
+- Oval:
+  The Oval template creates a circular crop area for the image. Users can customize the
+  diameterRatio
+  to control the size of the circular crop area.
+
+```kotlin
+ImageEditor(
+    photoState = photoState,
+    photoURI = fileUri,
+    templateState = templateState,
+    template = {
+        Oval(
+            diameterRatio = templateState.sizeRatio
+        )
+    },
+// Rest of the parameters
+)
+```
+
+- Square:
+  The Square template creates a square crop area for the image. Users can customize the
+  diameterRatio
+  to control the size of the square crop area.
+
+```kotlin
+ImageEditor(
+    photoState = photoState,
+    photoURI = fileUri,
+    templateState = templateState,
+    template = {
+        Square(
+            diameterRatio = templateState.sizeRatio
+        )
+    },
+// Rest of the parameters
+)
+```
+
+### Custom Template
+
+Custom templates can be created by defining a composable function that describes the shape and
+layout of the crop area. The custom template function should accept any required parameters and use
+Compose primitives like Canvas, Path, and DrawScope to draw the template. Then, simply pass the
+custom template function as a parameter to the ImageEditor.
 
 ## State Management
 
