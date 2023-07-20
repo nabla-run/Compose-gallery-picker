@@ -50,7 +50,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "run.nabla"
             artifactId = "gallery-picker"
-            version = "1.4.0"
+            version = "1.4.1"
             afterEvaluate {
                 from(components["release"])
             }
