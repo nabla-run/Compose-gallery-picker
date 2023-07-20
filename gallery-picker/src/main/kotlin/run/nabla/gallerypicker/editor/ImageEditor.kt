@@ -55,6 +55,10 @@ fun ImageEditor(
         primaryClick: () -> Unit,
     ) -> Unit,
 ) {
+    if (template != {} && templateState == null) {
+        throw Exception("Template is not empty, but templateState is null.")
+    }
+
     val context = LocalContext.current
     val screenSize = getScreenSize()
     var bitmap: Bitmap? by remember { mutableStateOf(null) }

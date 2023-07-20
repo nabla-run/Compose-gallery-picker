@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = GALLERY_INTENT_SCREEN // or GALLERY_SCREEN to composable example
+                startDestination = GALLERY_SCREEN // or GALLERY_SCREEN to composable example
             ) {
                 galleryPicker(
                     onImageSelected = {

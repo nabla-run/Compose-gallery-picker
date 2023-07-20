@@ -36,6 +36,8 @@ fun PhotoBox(
     onScaleChange: ((Float) -> Unit) = {},
     content: @Composable BoxScope.() -> Unit,
 ) {
+    state.calculateCurrentOffsetWithTemplateSize()
+    
     Box(
         modifier = modifier
             .height(IntrinsicSize.Min)

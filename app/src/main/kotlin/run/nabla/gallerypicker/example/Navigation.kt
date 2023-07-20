@@ -10,11 +10,11 @@ import run.nabla.gallerypicker.components.PhotoState
 import run.nabla.gallerypicker.components.rememberPhotoState
 import run.nabla.gallerypicker.editor.EditorFooter
 import run.nabla.gallerypicker.editor.ImageEditor
-import run.nabla.gallerypicker.extensions.saveAsOval
+import run.nabla.gallerypicker.extensions.saveAsSquare
 import run.nabla.gallerypicker.picker.GalleryPicker
 import run.nabla.gallerypicker.templates.TemplateState
-import run.nabla.gallerypicker.templates.circle.Circle
 import run.nabla.gallerypicker.templates.rememberTemplateState
+import run.nabla.gallerypicker.templates.square.Square
 
 const val GALLERY_SCREEN = "gallery-screen"
 const val IMAGE_EDITOR_SCREEN = "image-editor"
@@ -48,7 +48,7 @@ fun NavGraphBuilder.imageEditor(
             photoURI = fileUri,
             templateState = templateState,
             template = {
-                Circle(
+                Square(
                     diameterRatio = templateState.sizeRatio
                 )
             },
@@ -59,7 +59,7 @@ fun NavGraphBuilder.imageEditor(
                 )
             },
             onDoneClick = { bitmap, scale, offset, templateSize ->
-                bitmap.saveAsOval(
+                bitmap.saveAsSquare(
                     context = context,
                     scale = scale,
                     offset = offset,

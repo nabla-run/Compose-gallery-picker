@@ -1,4 +1,4 @@
-package run.nabla.gallerypicker.templates.circle
+package run.nabla.gallerypicker.templates.square
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxScope
@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 
 @Composable
-fun BoxScope.Oval(
+fun BoxScope.Square(
     modifier: Modifier = Modifier,
     diameterRatio: Float
 ) {
@@ -31,16 +31,22 @@ fun BoxScope.Oval(
                 size.value = it
             }
     ) {
+
         drawIntoCanvas {
-            val circlePath = Path().apply {
-                addOval(
-                    Rect(
-                        center,
-                        (size.value.width * diameterRatio) / 2f
-                    )
-                )
+            val squarePath = Path().apply {
+                val centerX = center.x
+                val centerY = center.y
+                val halfSize = (size.value.width * diameterRatio) / 2f
+
+                val left = centerX - halfSize
+                val top = centerY - halfSize
+                val right = centerX + halfSize
+                val bottom = centerY + halfSize
+
+                val squareRect = Rect(left, top, right, bottom)
+                addRect(squareRect)
             }
-            clipPath(circlePath, clipOp = ClipOp.Difference) {
+            clipPath(squarePath, clipOp = ClipOp.Difference) {
                 drawRect(SolidColor(Color(0x80000000)))
             }
         }
