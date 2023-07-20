@@ -36,12 +36,12 @@ fun PhotoBox(
     onScaleChange: ((Float) -> Unit) = {},
     content: @Composable BoxScope.() -> Unit,
 ) {
-    state.calculateCurrentOffsetWithTemplateSize()
-    
     Box(
         modifier = modifier
             .height(IntrinsicSize.Min)
-            .onSizeChanged { state.layoutSize = it.toSize() }
+            .onSizeChanged {
+                state.layoutSize = it.toSize()
+            }
             .pointerDragGestures(
                 enabled = enabled,
                 onDrag = { dragAmount ->

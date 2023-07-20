@@ -63,6 +63,9 @@ fun ImageEditor(
     val screenSize = getScreenSize()
     var bitmap: Bitmap? by remember { mutableStateOf(null) }
     var size by remember { mutableStateOf(IntSize.Zero) }
+    var imageOffset = Offset(0f, 0f)
+    var imageScale = 1f
+
     LaunchedEffect(photoURI) {
         withContext(Dispatchers.IO) {
             bitmap = photoURI.toScaledBitmap(context, screenSize)
@@ -82,12 +85,11 @@ fun ImageEditor(
                     width = size.width * templateState.sizeRatio,
                     height = size.width * templateState.sizeRatio
                 )
+                imageOffset = photoState.calculateCurrentOffsetWithTemplateSize()
             }
         }
     }
 
-    var imageOffset = Offset(0f, 0f)
-    var imageScale = 1f
 
     Column(
         modifier = modifier
