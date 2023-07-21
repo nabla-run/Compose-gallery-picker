@@ -21,12 +21,12 @@ repositories {
 ```
 
 ```kotlin
-implementation("run.nabla:gallery-picker:1.4.0")
+implementation("run.nabla:gallery-picker:1.4.2")
 ```
 
 ## Screenshots
 
-![Screenshot showing Image pciker and image editor screen](images/screenshot.png "Screenshot showing Image pciker and image editor screen")
+![Screenshot showing Image picker](images/screenshot.png "Screenshot showing image picker")
 
 ## Functions
 
@@ -118,6 +118,8 @@ Compose-gallery-picker provides two templates for the ImageEditor: Oval and Squa
   diameterRatio
   to control the size of the circular crop area.
 
+![Screenshot showing oval template](images/oval_template.jpg "Screenshot showing oval template")
+
 ```kotlin
 ImageEditor(
     photoState = photoState,
@@ -136,6 +138,8 @@ ImageEditor(
   The Square template creates a square crop area for the image. Users can customize the
   diameterRatio
   to control the size of the square crop area.
+
+![Screenshot showing square template](images/square_template.jpg "Screenshot showing square template")
 
 ```kotlin
 ImageEditor(
