@@ -118,8 +118,6 @@ Compose-gallery-picker provides two templates for the ImageEditor: Oval and Squa
   diameterRatio
   to control the size of the circular crop area.
 
-<img src="images/oval_template.jpg" alt="Screenshot showing oval template" height="550px"/>
-
 ```kotlin
 ImageEditor(
     photoState = photoState,
@@ -133,13 +131,12 @@ ImageEditor(
 // Rest of the parameters
 )
 ```
+<img src="images/oval_template.jpg" alt="Screenshot showing oval template" height="450px"/>
 
 - Square:
   The Square template creates a square crop area for the image. Users can customize the
   diameterRatio
   to control the size of the square crop area.
-
-<img src="images/square_template.jpg" alt="Screenshot showing square template" height="550px"/>
 
 ```kotlin
 ImageEditor(
@@ -154,6 +151,7 @@ ImageEditor(
 // Rest of the parameters
 )
 ```
+<img src="images/square_template.jpg" alt="Screenshot showing square template" height="450px"/>
 
 ### Custom Template
 
