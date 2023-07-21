@@ -16,7 +16,7 @@ Library is available on `mavenCentral()`.
 
 ```kotlin
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 ```
 
@@ -41,12 +41,12 @@ when an image is selected.
 ```kotlin
 @Composable
 fun GalleryPicker(
-    modifier: Modifier = Modifier,
-    state: GalleryPickerState = rememberGalleryPickerState(),
-    permissionState: RequestPermissionState = rememberRequestPermissionState(),
-    primaryColor: Color = Color.Black,
-    header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
-    onImageSelected: (Uri) -> Unit
+  modifier: Modifier = Modifier,
+  state: GalleryPickerState = rememberGalleryPickerState(),
+  permissionState: RequestPermissionState = rememberRequestPermissionState(),
+  primaryColor: Color = Color.Black,
+  header: @Composable () -> Unit = { GalleryHeader(title = state.headerTitle) },
+  onImageSelected: (Uri) -> Unit
 )
 ```
 
@@ -58,27 +58,27 @@ the gallery contract and retrieve the selected image URI.
 
 ```kotlin
 val pickPhotoLauncher = rememberLauncherForActivityResult(
-    contract = GalleryContract(),
-    onResult = { uri ->
+  contract = GalleryContract(),
+  onResult = { uri ->
 
-    }
+  }
 )
 
 SideEffect {
-    pickPhotoLauncher.launch(
-        GalleryRequest.Builder()
-            .setTitle("Pick one")
-            .setFontFamily(R.font.open_sans)
-            .setTitleSize(25)
-            .setBackgroundColor(Color.White.value.toLong())
-            .setTitleColor(Color.Black.value.toLong())
-            .showExitAction(false)
-            .setItemsRoundedCornerSize(5)
-            .setGridColumns(3)
-            .setPermissionTitle("Access to your photos")
-            .setPermissionSecondaryActionTitle("Cancel")
-            .build()
-    )
+  pickPhotoLauncher.launch(
+    GalleryRequest.Builder()
+      .setTitle("Pick one")
+      .setFontFamily(R.font.open_sans)
+      .setTitleSize(25)
+      .setBackgroundColor(Color.White.value.toLong())
+      .setTitleColor(Color.Black.value.toLong())
+      .showExitAction(false)
+      .setItemsRoundedCornerSize(5)
+      .setGridColumns(3)
+      .setPermissionTitle("Access to your photos")
+      .setPermissionSecondaryActionTitle("Cancel")
+      .build()
+  )
 }
 ```
 
@@ -91,21 +91,21 @@ and footer. The onDoneClick callback is triggered when the user finishes croppin
 ```kotlin
 @Composable
 fun ImageEditor(
-    modifier: Modifier = Modifier,
-    photoState: PhotoState = rememberPhotoState(),
-    template: @Composable BoxScope.() -> Unit = {},
-    templateState: TemplateState? = null,
-    primaryColor: Color = Color.Black,
-    photoURI: Uri,
-    onDoneClick: (
-        bitmap: Bitmap,
-        scale: Float,
-        offset: Offset,
-        templateSize: Size
-    ) -> Unit,
-    footer: @Composable BoxScope.(
-        primaryClick: () -> Unit,
-    ) -> Unit,
+  modifier: Modifier = Modifier,
+  photoState: PhotoState = rememberPhotoState(),
+  template: @Composable BoxScope.() -> Unit = {},
+  templateState: TemplateState? = null,
+  primaryColor: Color = Color.Black,
+  photoURI: Uri,
+  onDoneClick: (
+    bitmap: Bitmap,
+    scale: Float,
+    offset: Offset,
+    templateSize: Size
+  ) -> Unit,
+  footer: @Composable BoxScope.(
+    primaryClick: () -> Unit,
+  ) -> Unit,
 )
 ```
 
@@ -118,7 +118,7 @@ Compose-gallery-picker provides two templates for the ImageEditor: Oval and Squa
   diameterRatio
   to control the size of the circular crop area.
 
-![Screenshot showing oval template](images/oval_template.jpg "Screenshot showing oval template")
+<img src="images/oval_template.jpg" alt="Screenshot showing oval template" height="550px"/>
 
 ```kotlin
 ImageEditor(
@@ -139,18 +139,18 @@ ImageEditor(
   diameterRatio
   to control the size of the square crop area.
 
-![Screenshot showing square template](images/square_template.jpg "Screenshot showing square template")
+<img src="images/square_template.jpg" alt="Screenshot showing square template" height="550px"/>
 
 ```kotlin
 ImageEditor(
-    photoState = photoState,
-    photoURI = fileUri,
-    templateState = templateState,
-    template = {
-        Square(
-            diameterRatio = templateState.sizeRatio
-        )
-    },
+  photoState = photoState,
+  photoURI = fileUri,
+  templateState = templateState,
+  template = {
+    Square(
+      diameterRatio = templateState.sizeRatio
+    )
+  },
 // Rest of the parameters
 )
 ```
