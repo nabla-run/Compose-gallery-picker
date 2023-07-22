@@ -32,8 +32,6 @@ fun PhotoBox(
     contentAlignment: Alignment = Alignment.Center,
     propagateMinConstraints: Boolean = false,
     onTap: ((Offset) -> Unit) = {},
-    onOffsetChange: ((Offset) -> Unit) = {},
-    onScaleChange: ((Float) -> Unit) = {},
     content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
@@ -70,10 +68,6 @@ fun PhotoBox(
             )
             .clipToBounds()
             .graphicsLayer {
-                onOffsetChange(
-                    state.calculateCurrentOffsetWithTemplateSize()
-                )
-                onScaleChange(state.currentScale)
                 scaleX = state.currentScale
                 scaleY = state.currentScale
                 translationX = state.currentOffset.x

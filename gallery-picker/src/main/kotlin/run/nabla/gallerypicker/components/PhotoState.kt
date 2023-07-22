@@ -62,7 +62,6 @@ class PhotoState(
     private val minimumScale: Float = 1f,
     internal val maximumScale: Float = 3f,
 ) {
-
     internal var layoutSize: Size = Size.Zero
 
     private var photoIntrinsicSize: Size = Size.Unspecified
@@ -80,7 +79,7 @@ class PhotoState(
     private var _currentScale by mutableStateOf(currentScale)
 
     @get:FloatRange(from = 1.0)
-    internal var currentScale: Float
+    var currentScale: Float
         get() = _currentScale
         internal set(value) {
             val coerceValue = value.coerceIn(minimumScale, maximumScale)
