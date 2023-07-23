@@ -69,8 +69,10 @@ fun GalleryPicker(
         state = lazyGridState,
         columns = StaggeredGridCells.Fixed(state.gridColumns)
     ) {
-        item(span = StaggeredGridItemSpan.FullLine) {
-            header()
+        if (header != {}) {
+            item(span = StaggeredGridItemSpan.FullLine) {
+                header()
+            }
         }
         itemsIndexed(
             items = photos
