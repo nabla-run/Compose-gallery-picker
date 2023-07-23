@@ -1,6 +1,8 @@
 package run.nabla.gallerypicker.example
 
 import android.net.Uri
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -16,6 +18,7 @@ fun NavGraphBuilder.galleryPicker(
 ) {
     composable(route = GALLERY_SCREEN) {
         GalleryPicker(
+            modifier = Modifier.statusBarsPadding(),
             onImageSelected = onImageSelected
         )
     }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
@@ -32,12 +32,13 @@ import run.nabla.gallerypicker.permission.RequestPermissionScreen
 import run.nabla.gallerypicker.permission.RequestPermissionState
 import run.nabla.gallerypicker.permission.rememberRequestPermissionState
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun GalleryPicker(
     modifier: Modifier = Modifier,
     state: GalleryPickerState = rememberGalleryPickerState(),
     permissionState: RequestPermissionState = rememberRequestPermissionState(),
+    lazyGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
     backgroundColor: Color = Color.Black,
     header: @Composable () -> Unit = {
         GalleryHeader(
@@ -47,7 +48,6 @@ fun GalleryPicker(
     onImageSelected: (Uri) -> Unit,
 ) {
     val context = LocalContext.current
-    val lazyGridState = rememberLazyStaggeredGridState()
     val storagePermissionState = rememberPermissionState(
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
@@ -64,7 +64,6 @@ fun GalleryPicker(
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .background(backgroundColor)
-            .statusBarsPadding()
             .padding(horizontal = state.horizontalPadding.dp)
             .fillMaxWidth(),
         state = lazyGridState,
