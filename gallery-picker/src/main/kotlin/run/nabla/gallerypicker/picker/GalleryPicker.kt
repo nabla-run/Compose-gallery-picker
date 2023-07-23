@@ -39,7 +39,11 @@ fun GalleryPicker(
     state: GalleryPickerState = rememberGalleryPickerState(),
     permissionState: RequestPermissionState = rememberRequestPermissionState(),
     backgroundColor: Color = Color.Black,
-    header: @Composable () -> Unit = { GalleryHeader() },
+    header: @Composable () -> Unit = {
+        GalleryHeader(
+            onLeftActionClick = {}
+        )
+    },
     onImageSelected: (Uri) -> Unit,
 ) {
     val context = LocalContext.current

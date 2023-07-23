@@ -28,9 +28,12 @@ fun GalleryHeader(
     title: String = DEFAULT_HEADER_TITLE,
     titleSize: Int = DEFAULT_HEADER_TITLE_SIZE,
     titleColor: Long = Color.White.value.toLong(),
-    actionIcon: ImageVector = Icons.Default.Close,
+    rightActionIcon: ImageVector = Icons.Default.Close,
+    leftActionIcon: ImageVector = Icons.Default.Close,
     paddingVertical: Int = DEFAULT_HEADER_PADDING_VERTICAL,
     paddingHorizontal: Int = DEFAULT_HEADER_PADDING_HORIZONTAL,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    onRightActionClick: (() -> Unit)? = null,
     onLeftActionClick: (() -> Unit)? = null
 ) {
     if (title.isEmpty()) return
@@ -38,21 +41,33 @@ fun GalleryHeader(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = paddingVertical.dp, horizontal = paddingHorizontal.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = verticalAlignment
     ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            text = title,
-            color = Color(titleColor.toULong()),
-            fontSize = titleSize.sp,
-            fontWeight = FontWeight.Bold
-        )
         onLeftActionClick?.let {
             Icon(
                 modifier = Modifier.clickable {
                     onLeftActionClick()
                 },
-                imageVector = actionIcon,
+                imageVector = leftActionIcon,
+                contentDescription = "",
+                tint = Color(titleColor.toULong())
+            )
+        }
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 10.dp),
+            text = title,
+            color = Color(titleColor.toULong()),
+            fontSize = titleSize.sp,
+            fontWeight = FontWeight.Bold
+        )
+        onRightActionClick?.let {
+            Icon(
+                modifier = Modifier.clickable {
+                    onRightActionClick()
+                },
+                imageVector = rightActionIcon,
                 contentDescription = "",
                 tint = Color(titleColor.toULong())
             )
