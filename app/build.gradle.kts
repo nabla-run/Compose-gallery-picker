@@ -53,7 +53,7 @@ dependencies {
     implementation("androidx.compose.material:material:1.4.3")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.ui:ui")
-    implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("com.google.dagger:hilt-android:2.47")
     debugImplementation("androidx.compose.ui:ui-tooling")
