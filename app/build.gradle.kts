@@ -50,7 +50,7 @@ dependencies {
     implementation(composeBom)
     implementation(project(":gallery-picker"))
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material:material:1.4.3")
+    implementation("androidx.compose.material:material:1.7.4")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.navigation:navigation-compose:2.6.0")
