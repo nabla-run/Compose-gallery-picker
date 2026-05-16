@@ -49,7 +49,7 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2023.06.01")
     implementation(composeBom)
     implementation(project(":gallery-picker"))
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.activity:activity-compose:1.13.0")
     implementation("androidx.compose.material:material:1.4.3")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.ui:ui")
